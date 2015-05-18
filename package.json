@@ -1,0 +1,16 @@
+{
+  "name": "react-wouter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^3.8.0",
+    "path-to-regexp": "^1.1.1",
+    "react": "^0.13.3"
+  }
+}
