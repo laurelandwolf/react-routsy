@@ -58,13 +58,13 @@ SmallRouter.Route = createClass({
 
   propTypes: {
     path: PropTypes.string.isRequired,
-    paramsAs: PropTypes.object // TODO: rename to paramsAsProps
+    paramsAsProps: PropTypes.object
   },
 
   getDefaultProps: function () {
 
     return {
-      paramsAs: {}
+      paramsAsProps: {}
     }
   },
 
@@ -120,8 +120,6 @@ SmallRouter.Route = createClass({
 
       var params = this.parseParams();
 
-      // TODO: only add props to elements, not text children!!!
-
       // For now, cloning the element and adding the router
       // information to the props is the only way to get
       // information into the children.
@@ -135,11 +133,12 @@ SmallRouter.Route = createClass({
         // Map params from paramsAs
         var paramsAsProps = {};
 
-        Object.keys(self.props.paramsAs).forEach(function (key) {
+        Object.keys(self.props.paramsAsProps)
+        .forEach(function (key) {
 
-          var mapToKey = self.props.paramsAs[key]
-          paramsAsProps[mapToKey] = params[key];
-        });
+            var mapToKey = self.props.paramsAsProps[key]
+            paramsAsProps[mapToKey] = params[key];
+          });
 
         var props = assign(clone(self.props), {
           router: {

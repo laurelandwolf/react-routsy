@@ -102,7 +102,7 @@ describe('Router', () => {
           <Route path='/custom-component/:id'>
             <CustomComponent />
           </Route>
-          <Route path='/custom-params/:id' paramsAs={{id: 'customId'}}>
+          <Route path='/custom-params/:id' paramsAsProps={{id: 'customId'}}>
             <CustomComponent />
           </Route>
         </div>;

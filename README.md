@@ -40,6 +40,33 @@ class CustomComponent extends Component {
 render(<CustomComponent />, document.body);
 ```
 
+## Props
+
+### path
+
+*required*
+
+The path that should trigger the rendering of the Route component. All routes are hash-based, so `/` as a path is equal to `#/` in the hash.
+
+### paramsAsProps
+
+*optional*
+
+Takes and object and maps keys and objects in the route params to specified keys, and then passes them in the children component's props. This is useful in decoupling components from the router.
+
+```html
+
+let paramsMap = {
+	id: 'somePropName'
+};
+
+<Route path="/users/:id" paramsAsProps={paramsMap}>
+	<CustomComponent />
+</Route>
+```
+
+`this.props.somePropName` is now available when defining `<CustomComponent />`.
+
 ## Run Tests
 
 ```
