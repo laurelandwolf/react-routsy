@@ -1,7 +1,7 @@
 {
   "name": "react-routsy",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tiny React component for routing on individual pages",
   "main": "index.js",
   "scripts": {
     "test": "karma start"
@@ -28,5 +28,17 @@
     "karma-source-map-support": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.4",
     "mocha": "^2.2.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laurelandwolf/react-routsy.git"
+  },
+  "keywords": [
+    "react",
+    "router"
+  ],
+  "bugs": {
+    "url": "https://github.com/laurelandwolf/react-routsy/issues"
+  },
+  "homepage": "https://github.com/laurelandwolf/react-routsy#readme"
 }
