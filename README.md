@@ -14,7 +14,12 @@ import React, {Component, render} from 'react';
 import {Route, navigateTo} from 'react-routsy';
 
 class CustomComponent extends Component {
-
+	
+  go () {
+  	
+    navigateTo('/do-this');
+  }
+  
 	render () {
 		
 		return (
@@ -23,7 +28,7 @@ class CustomComponent extends Component {
 					<div>This gets rendered only when the path matches</div>
 				</Route>
 				<Route path='/users/:id'>
-					<p>
+					<p onClick={this.go.bind(this)}>
 						This is renedered with id available on {this.props.router.params.id}.
 
 						This is also available on child component props.
