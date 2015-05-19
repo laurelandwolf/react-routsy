@@ -1,19 +1,15 @@
 var React = require('react');
-var _ = require('lodash');
 var pathToRegexp = require('path-to-regexp');
+var assign = require('object-assign');
+var zipObject = require('zip-object');
+var clone = require('lodash.clone');
+var pluck = require('lodash.pluck');
 
 var DOM = React.DOM;
 var createClass = React.createClass;
 var PropTypes = React.PropTypes;
 var Children = React.Children;
 var cloneElement = React.cloneElement;
-
-var each = _.each;
-var merge = _.merge;
-var pluck = _.pluck;
-var zipObject = _.zipObject;
-var tail = _.tail;
-var clone = _.clone;
 
 var SmallRouter = {
   // Private, singleton store for all routes
@@ -47,7 +43,7 @@ var SmallRouter = {
 // to live as long as the app does
 window.addEventListener('hashchange', function () {
 
-  each(SmallRouter.listeners, function (fn) {
+  SmallRouter.listeners.forEach(function (fn) {
 
     fn();
   });
@@ -109,8 +105,8 @@ SmallRouter.Route = createClass({
     var pathRegex = pathToRegexp(this.props.path);
     var parsedPath = pathToRegexp.parse(this.props.path);
 
-    var keys = pluck(tail(parsedPath), 'name');
-    var values = tail(this.parseHash().match(pathRegex));
+    var keys = pluck(parsedPath.slice(1), 'name');
+    var values = this.parseHash().match(pathRegex).slice(1);
 
     return zipObject(keys, values);
   },
@@ -145,7 +141,7 @@ SmallRouter.Route = createClass({
           paramsAsProps[mapToKey] = params[key];
         });
 
-        var props = merge(clone(self.props), {
+        var props = assign(clone(self.props), {
           router: {
             params: params
           }
