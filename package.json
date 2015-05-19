@@ -1,6 +1,6 @@
 {
   "name": "react-routsy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tiny React component for routing on individual pages",
   "main": "index.js",
   "scripts": {
@@ -9,12 +9,10 @@
   "author": "laurelandwolf",
   "license": "MIT",
   "dependencies": {
-    "lodash.clone": "^3.0.1",
+    "lodash": "^3.9.1",
     "object-assign": "^2.0.0",
     "path-to-regexp": "^1.1.1",
-    "pluck": "0.0.4",
-    "react": "^0.13.3",
-    "zip-object": "^0.1.0"
+    "react": "^0.13.3"
   },
   "devDependencies": {
     "babelify": "^6.1.1",
