@@ -3,7 +3,7 @@ var pathToRegexp = require('path-to-regexp');
 var assign = require('object-assign');
 var zipObject = require('zip-object');
 var clone = require('lodash.clone');
-var pluck = require('lodash.pluck');
+var pluck = require('pluck');
 
 var DOM = React.DOM;
 var createClass = React.createClass;
@@ -105,7 +105,7 @@ SmallRouter.Route = createClass({
     var pathRegex = pathToRegexp(this.props.path);
     var parsedPath = pathToRegexp.parse(this.props.path);
 
-    var keys = pluck(parsedPath.slice(1), 'name');
+    var keys = pluck('name')(parsedPath.slice(1));
     var values = this.parseHash().match(pathRegex).slice(1);
 
     return zipObject(keys, values);
