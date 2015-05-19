@@ -1,33 +1,32 @@
-var react = require('react');
+var React = require('react');
 var _ = require('lodash');
 var pathToRegexp = require('path-to-regexp');
 
 var DOM = React.DOM;
-var Component = React.Component;
 var createClass = React.createClass;
 var PropTypes = React.PropTypes;
 var Children = React.Children;
 var cloneElement = React.cloneElement;
 
 var each = _.each;
-var assign = _.assign;
+var merge = _.merge;
 var pluck = _.pluck;
 var zipObject = _.zipObject;
 var tail = _.tail;
+var clone = _.clone;
 
 var SmallRouter = {
   // Private, singleton store for all routes
   // TODO: add scope to props of route element?
   routes: [],
-
   listeners: [],
 
-  navigateTo (path) {
+  navigateTo: function (path) {
 
     window.location.hash = path;
   },
 
-  currentPath () {
+  currentPath: function () {
 
     var rawPath = window.location.hash.split('#')[1];
 
@@ -35,10 +34,10 @@ var SmallRouter = {
       rawPath = '';
     }
 
-    return `${rawPath}`;
+    return rawPath;
   },
 
-  currentPathMatches (path) {
+  currentPathMatches: function (path) {
 
     return path === SmallRouter.currentPath();
   }
@@ -119,11 +118,13 @@ SmallRouter.Route = createClass({
   render: function () {
 
     var element = null;
-    var props = this.props;
+    var self = this;
 
     if (this.shouldRender()) {
 
       var params = this.parseParams();
+
+      // TODO: only add props to elements, not text children!!!
 
       // For now, cloning the element and adding the router
       // information to the props is the only way to get
@@ -131,14 +132,24 @@ SmallRouter.Route = createClass({
       // Hopefully we can change this in the future.
       var children = Children.map(this.props.children, function (child) {
 
-        // Map params from paramsAs
-        var paramsAs = {};
-        each(props.paramsAs, function (mapTo, mapFrom) {
+        if (typeof child === 'string') {
+          return child;
+        }
 
-          paramsAs[mapTo] = params[mapFrom];
+        // Map params from paramsAs
+        var paramsAsProps = {};
+
+        Object.keys(self.props.paramsAs).forEach(function (key) {
+
+          var mapToKey = self.props.paramsAs[key]
+          paramsAsProps[mapToKey] = params[key];
         });
 
-        var props = assign(props, {router: {params}}, paramsAs);
+        var props = merge(clone(self.props), {
+          router: {
+            params: params
+          }
+        }, paramsAsProps);
 
         return cloneElement(child, props);
       });
