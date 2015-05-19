@@ -9,19 +9,19 @@ npm install react-router --save
 
 ## Usage
 
-```html
+```js
 import React, {Component, render} from 'react';
 import {Route, navigateTo} from 'react-routsy';
 
 class CustomComponent extends Component {
-	
+
   go () {
-  	
+
     navigateTo('/do-this');
   }
-  
+
 	render () {
-		
+
 		return (
 			<div>
 				<Route path='/do-this'>
@@ -59,7 +59,7 @@ The path that should trigger the rendering of the Route component. All routes ar
 
 Takes and object and maps keys and objects in the route params to specified keys, and then passes them in the children component's props. This is useful in decoupling components from the router.
 
-```html
+```js
 
 let paramsMap = {
 	id: 'somePropName'
