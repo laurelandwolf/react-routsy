@@ -78,3 +78,4 @@ let paramsMap = {
 npm install
 npm test
 ```
+
