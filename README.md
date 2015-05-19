@@ -20,26 +20,26 @@ class CustomComponent extends Component {
     navigateTo('/do-this');
   }
 
-	render () {
+  render () {
 
-		return (
-			<div>
-				<Route path='/do-this'>
-					<div>This gets rendered only when the path matches</div>
-				</Route>
-				<Route path='/users/:id'>
-					<p onClick={this.go.bind(this)}>
-						This is renedered with id available on {this.props.router.params.id}.
+    return (
+      <div>
+        <Route path='/do-this'>
+          <div>This gets rendered only when the path matches</div>
+        </Route>
+        <Route path='/users/:id'>
+          <p onClick={this.go.bind(this)}>
+            This is renedered with id available on {this.props.router.params.id}.
 
-						This is also available on child component props.
-					</p>
-				</Route>
-				<Route path='/'>
-					This gets rendered when the hash is #/ or #
-				</Route>
-			</div>
-		);
-	}
+            This is also available on child component props.
+          </p>
+        </Route>
+        <Route path='/'>
+          This gets rendered when the hash is #/ or #
+        </Route>
+      </div>
+    );
+  }
 }
 
 render(<CustomComponent />, document.body);
@@ -62,11 +62,11 @@ Takes and object and maps keys and objects in the route params to specified keys
 ```js
 
 let paramsMap = {
-	id: 'somePropName'
+  id: 'somePropName'
 };
 
 <Route path="/users/:id" paramsAsProps={paramsMap}>
-	<CustomComponent />
+  <CustomComponent />
 </Route>
 ```
 
