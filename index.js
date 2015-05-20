@@ -87,7 +87,7 @@ SmallRouter.Route = createClass({
   hashChange: function () {
 
     var path = this.parseHash();
-    this.setState({path});
+    this.setState({path: path});
   },
 
   parseHash: function () {
