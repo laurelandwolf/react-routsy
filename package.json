@@ -1,6 +1,6 @@
 {
   "name": "react-routsy",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Tiny React component for routing on individual pages",
   "main": "index.js",
   "scripts": {
@@ -8,11 +8,13 @@
   },
   "author": "laurelandwolf",
   "license": "MIT",
+  "peerDependecies": {
+    "react": ">= 0.13.0, < 0.14.0"
+  },
   "dependencies": {
     "lodash": "^3.9.1",
     "object-assign": "^2.0.0",
-    "path-to-regexp": "^1.1.1",
-    "react": "^0.13.3"
+    "path-to-regexp": "^1.1.1"
   },
   "devDependencies": {
     "babelify": "^6.1.1",
@@ -25,7 +27,8 @@
     "karma-mocha-reporter": "^1.0.2",
     "karma-source-map-support": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.4",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "react": "^0.13.3"
   },
   "repository": {
     "type": "git",
