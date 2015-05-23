@@ -58,13 +58,15 @@ SmallRouter.Route = createClass({
 
   propTypes: {
     path: PropTypes.string.isRequired,
-    paramsAsProps: PropTypes.object
+    paramsAsProps: PropTypes.object,
+    willRender: PropTypes.func
   },
 
   getDefaultProps: function () {
 
     return {
-      paramsAsProps: {}
+      paramsAsProps: {},
+      willRender: function () {}
     }
   },
 
@@ -116,9 +118,12 @@ SmallRouter.Route = createClass({
     var element = null;
     var self = this;
 
+
     if (this.shouldRender()) {
 
       var params = this.parseParams();
+
+      this.props.willRender(params);
 
       // For now, cloning the element and adding the router
       // information to the props is the only way to get

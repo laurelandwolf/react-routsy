@@ -134,4 +134,61 @@ describe('Router', () => {
       assert.equal(props.customId, 123, 'custom param');
     });
   });
+
+  describe('callback functions', () => {
+
+    it('triggers a callback on render', () => {
+
+      let calledHandler = false;
+
+      class CustomComponent extends React.Component {
+
+        handleWillRender (_params_) {
+
+          calledHandler = true;
+        }
+
+        render () {
+
+          return (
+            <Route
+              path='/'
+              willRender={this.handleWillRender.bind(this)} />
+          );
+        }
+      }
+
+      navigateTo('/');
+      let component = TestUtils.renderIntoDocument(<CustomComponent />);
+
+      assert.ok(calledHandler, 'called handler on render');
+    });
+
+    it('passes params to render callback', () => {
+
+      let params = {};
+
+      class CustomComponent extends React.Component {
+
+        handleWillRender (_params_) {
+
+          params = _params_;
+        }
+
+        render () {
+
+          return (
+            <Route
+              path='/route/:id'
+              willRender={this.handleWillRender.bind(this)} />
+          );
+        }
+      }
+
+      navigateTo('/route/123');
+      let component = TestUtils.renderIntoDocument(<CustomComponent />);
+
+      assert.deepEqual(params, {id: '123'}, 'received params');
+    });
+  });
 });
