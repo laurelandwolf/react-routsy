@@ -63,14 +63,6 @@ type: *Object*
 
 Takes and object and maps keys and objects in the route params to specified keys, and then passes them in the children component's props. This is useful in decoupling components from the router.
 
-### willRender
-
-type: *Function*
-
-Takes a callback that gets triggered when path matches route. This is useful if you need to redirect, etc.
-
-
-
 ```js
 
 let paramsMap = {
@@ -83,6 +75,12 @@ let paramsMap = {
 ```
 
 `this.props.somePropName` is now available when defining `<CustomComponent />`.
+
+### willRender
+
+type: *Function*
+
+Takes a callback that gets triggered when path matches route. This is useful if you need to redirect, etc.
 
 ## Run Tests
 
