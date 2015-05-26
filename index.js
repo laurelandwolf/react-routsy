@@ -54,6 +54,67 @@ function onHashChange (fn) {
   SmallRouter.listeners.push(fn);
 }
 
+SmallRouter.Link = createClass({
+
+  propTypes: {
+    path: PropTypes.string.isRequired,
+    activeClassName: PropTypes.string,
+    activeStyle: PropTypes.object
+  },
+
+  getDefaultProps: function () {
+
+    return {
+      activeClassName: 'active',
+      activeStyle: {}
+    };
+  },
+
+  getInitialState: function () {
+
+    return {
+      active: false
+    };
+  },
+
+  componentDidMount () {
+
+    this.setActiveClassName();
+  },
+
+  setActiveClassName () {
+
+    if (SmallRouter.currentPath() === this.props.path) {
+      this.setState({
+        active: true
+      });
+    }
+  },
+
+  gotoPath: function (e) {
+
+    e.preventDefault();
+    SmallRouter.navigateTo(this.props.path);
+    this.setActiveClassName();
+  },
+
+  render: function () {
+
+    let style = assign({
+      cursor: 'pointer'
+    }, this.state.active ? this.props.activeStyle : {});
+
+    return (
+      <a
+        style={style}
+        onClick={this.gotoPath}
+        className={this.state.active ? this.props.activeClassName : null} >
+          {this.props.children}
+      </a>
+    );
+  }
+});
+
 SmallRouter.Route = createClass({
 
   propTypes: {

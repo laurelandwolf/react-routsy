@@ -5,7 +5,8 @@ import {
   Route,
   navigateTo,
   currentPath,
-  currentPathMatches
+  currentPathMatches,
+  Link
 } from '../';
 
 let TestUtils = React.addons.TestUtils;
@@ -190,5 +191,70 @@ describe('Router', () => {
 
       assert.deepEqual(params, {id: '123'}, 'received params');
     });
+  });
+});
+
+describe('Link', () => {
+
+  it('creates an anchor node with styles', () => {
+
+    let component = TestUtils.renderIntoDocument(<Link path='/' />);
+    let node = component.getDOMNode();
+
+    assert.equal(node.tagName, 'A', 'anchor tag');
+    assert.equal(node.style.cursor, 'pointer', 'pointer cursor on hover');
+  });
+
+  it('renders children', () => {
+
+    let component = TestUtils.renderIntoDocument(<Link path='/'>Hello</Link>);
+    let node = component.getDOMNode();
+
+    assert.equal(node.innerHTML, 'Hello', 'innerHTML');
+  });
+
+  it('clicking navigates to the path', () => {
+
+    navigateTo('/');
+    let component = TestUtils.renderIntoDocument(<Link path='/path1' />);
+    TestUtils.Simulate.click(component.getDOMNode());
+
+    assert.equal(currentPath(), '/path1', 'set path');
+  });
+
+  it('sets the active class to the default', () => {
+
+    navigateTo('/');
+    let component = TestUtils.renderIntoDocument(<Link path='/path1' />);
+    TestUtils.Simulate.click(component.getDOMNode());
+
+    assert.equal(component.props.activeClassName, 'active', 'default class name');
+    assert.ok(component.getDOMNode().classList.contains('active'), 'active class set');
+  });
+
+  it('sets active class when component renders', () => {
+
+    navigateTo('/path1');
+    let component = TestUtils.renderIntoDocument(<Link path='/path1' />);
+
+    assert.ok(component.getDOMNode().classList.contains('active'), 'active class set');
+  });
+
+  it('sets the active class to custom class', () => {
+
+    navigateTo('/');
+    let component = TestUtils.renderIntoDocument(<Link path='/path1' activeClassName="customActive" />);
+    TestUtils.Simulate.click(component.getDOMNode());
+
+    assert.ok(component.getDOMNode().classList.contains('customActive'), 'active class set');
+  });
+
+  it('sets custom active style', () => {
+
+    navigateTo('/');
+    let component = TestUtils.renderIntoDocument(<Link path='/path1' activeStyle={{color: 'red'}} />);
+    TestUtils.Simulate.click(component.getDOMNode());
+
+    assert.equal(component.getDOMNode().style.color, 'red', 'active style set');
   });
 });

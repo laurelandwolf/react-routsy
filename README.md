@@ -11,7 +11,7 @@ npm install react-router --save
 
 ```js
 import React, {Component, render} from 'react';
-import {Route, navigateTo} from 'react-routsy';
+import {Route, navigateTo, Link} from 'react-routsy';
 
 class CustomComponent extends Component {
 
@@ -40,6 +40,9 @@ class CustomComponent extends Component {
         </Route>
         <Route path='/' willRender={this.handleRender.bind(this)}>
           This gets rendered when the hash is #/ or #
+          <Link path='/do-this' activeClassName='this-is-active'>
+          	Go Here
+          </Link>
         </Route>
       </div>
     );
@@ -49,7 +52,7 @@ class CustomComponent extends Component {
 render(<CustomComponent />, document.body);
 ```
 
-## Props
+## Route Props
 
 ### path
 
@@ -81,6 +84,26 @@ let paramsMap = {
 type: *Function*
 
 Takes a callback that gets triggered when path matches route. This is useful if you need to redirect, etc.
+
+## Link Props
+
+### path
+
+type: *String*
+
+Path to navigate to.
+
+### activeClassName
+
+type: *String*
+
+Class name to set when the link's path matches the current route path.
+
+### activeStyle
+
+type: *Object*
+
+Inline style object to set on link when the link's path matches the current route path.
 
 ## Run Tests
 
