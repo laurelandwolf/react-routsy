@@ -11,7 +11,7 @@ var PropTypes = React.PropTypes;
 var Children = React.Children;
 var cloneElement = React.cloneElement;
 
-var SmallRouter = {
+var Routsy = {
   // Private, singleton store for all routes
   // TODO: add scope to props of route element?
   routes: [],
@@ -35,7 +35,7 @@ var SmallRouter = {
 
   currentPathMatches: function (path) {
 
-    return path === SmallRouter.currentPath();
+    return path === Routsy.currentPath();
   }
 };
 
@@ -43,7 +43,7 @@ var SmallRouter = {
 // to live as long as the app does
 window.addEventListener('hashchange', function () {
 
-  SmallRouter.listeners.forEach(function (fn) {
+  Routsy.listeners.forEach(function (fn) {
 
     fn();
   });
@@ -51,10 +51,10 @@ window.addEventListener('hashchange', function () {
 
 function onHashChange (fn) {
 
-  SmallRouter.listeners.push(fn);
+  Routsy.listeners.push(fn);
 }
 
-SmallRouter.Link = createClass({
+Routsy.Link = createClass({
 
   propTypes: {
     path: PropTypes.string.isRequired,
@@ -91,14 +91,14 @@ SmallRouter.Link = createClass({
   setActiveClassName: function () {
 
     this.setState({
-      active: SmallRouter.currentPathMatches(this.props.path)
+      active: Routsy.currentPathMatches(this.props.path)
     });
   },
 
   gotoPath: function (e) {
 
     e.preventDefault();
-    SmallRouter.navigateTo(this.props.path);
+    Routsy.navigateTo(this.props.path);
     this.setActiveClassName();
   },
 
@@ -120,7 +120,7 @@ SmallRouter.Link = createClass({
   }
 });
 
-SmallRouter.Route = createClass({
+Routsy.Route = createClass({
 
   propTypes: {
     path: PropTypes.string.isRequired,
@@ -145,7 +145,7 @@ SmallRouter.Route = createClass({
 
   componentDidMount: function () {
 
-    SmallRouter.routes.push({
+    Routsy.routes.push({
       path: this.props.path
     });
 
@@ -160,7 +160,7 @@ SmallRouter.Route = createClass({
 
   parseHash: function () {
 
-    return SmallRouter.currentPath();
+    return Routsy.currentPath();
   },
 
   shouldRender: function () {
@@ -227,4 +227,4 @@ SmallRouter.Route = createClass({
   }
 });
 
-module.exports = SmallRouter;
+module.exports = Routsy;
