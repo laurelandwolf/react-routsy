@@ -91,7 +91,7 @@ SmallRouter.Link = createClass({
   setActiveClassName: function () {
 
     this.setState({
-      active: (SmallRouter.currentPath() === this.props.path)
+      active: SmallRouter.currentPathMatches(this.props.path)
     });
   },
 
