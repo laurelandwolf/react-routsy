@@ -31,6 +31,31 @@ describe('Router', () => {
       </div>;
   });
 
+  describe('routes with multiple children', () => {
+
+    let routeWithMultipleChildren;
+
+    beforeEach(() => {
+
+      routeWithMultipleChildren =
+        <div>
+          <Route path='/mine'>
+            <p>My route</p>
+            <p>Something else</p>
+          </Route>
+        </div>;
+    });
+
+    it('renders successfully', () => {
+
+      navigateTo('/mine');
+
+      let component = TestUtils.renderIntoDocument(routeWithMultipleChildren);
+      let textContent = component.getDOMNode().textContent;
+      assert.equal(textContent, 'My routeSomething else', 'rendered text content');
+    });
+  });
+
   it('gets and sets the current path', () => {
 
     navigateTo('/test');
