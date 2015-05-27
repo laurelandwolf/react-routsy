@@ -100,18 +100,19 @@ SmallRouter.Link = createClass({
 
   render: function () {
 
-    let style = assign({
-      cursor: 'pointer'
-    }, this.state.active ? this.props.activeStyle : {});
+    let style = assign(
+      {
+        cursor: 'pointer'
+      },
+      this.props.style, // TODO: test this
+      this.state.active ? this.props.activeStyle : {}
+    )
 
-    return (
-      <a
-        style={style}
-        onClick={this.gotoPath}
-        className={this.state.active ? this.props.activeClassName : null} >
-          {this.props.children}
-      </a>
-    );
+    return DOM.a({
+      style: style,
+      onClick: this.gotoPath,
+      className: this.state.active ? this.props.activeClassName : null
+    }, this.props.children);
   }
 });
 
