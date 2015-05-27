@@ -104,7 +104,7 @@ Routsy.Link = createClass({
 
   render: function () {
 
-    let style = assign(
+    var style = assign(
       {
         cursor: 'pointer'
       },
