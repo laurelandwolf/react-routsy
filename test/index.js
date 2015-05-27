@@ -249,6 +249,20 @@ describe('Link', () => {
     assert.ok(component.getDOMNode().classList.contains('customActive'), 'active class set');
   });
 
+  it('removes the active class name when hash changes', (done) => {
+
+    navigateTo('/');
+    let component = TestUtils.renderIntoDocument(<Link path='/path1' activeClassName="customActive" />);
+    TestUtils.Simulate.click(component.getDOMNode());
+    navigateTo('/');
+
+    setTimeout(() => {
+
+      assert.notOk(component.getDOMNode().classList.contains('customActive'), 'active class set');
+      done();
+    }, 0);
+  });
+
   it('sets custom active style', () => {
 
     navigateTo('/');
@@ -258,9 +272,22 @@ describe('Link', () => {
     assert.equal(component.getDOMNode().style.color, 'red', 'active style set');
   });
 
+  it('removes active style when hash changes', (done) => {
+
+    navigateTo('/');
+    let component = TestUtils.renderIntoDocument(<Link path='/path1' activeStyle={{color: 'red'}} />);
+    TestUtils.Simulate.click(component.getDOMNode());
+    navigateTo('/');
+
+    setTimeout(() => {
+      assert.equal(component.getDOMNode().style.color, '', 'active style set');
+      done();
+    }, 0);
+  });
+
   it('pass through style prop', () => {
 
-    let component = TestUtils.renderIntoDocument(<Link style={{color: 'red'}}/>);
+    let component = TestUtils.renderIntoDocument(<Link path='/' style={{color: 'red'}}/>);
 
     assert.equal(component.getDOMNode().style.color, 'red', 'active style set');
   });

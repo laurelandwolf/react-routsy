@@ -77,18 +77,22 @@ SmallRouter.Link = createClass({
     };
   },
 
-  componentDidMount () {
+  componentDidMount: function () {
+
+    this.setActiveClassName();
+    onHashChange(this.hashChanged);
+  },
+
+  hashChanged: function () {
 
     this.setActiveClassName();
   },
 
-  setActiveClassName () {
+  setActiveClassName: function () {
 
-    if (SmallRouter.currentPath() === this.props.path) {
-      this.setState({
-        active: true
-      });
-    }
+    this.setState({
+      active: (SmallRouter.currentPath() === this.props.path)
+    });
   },
 
   gotoPath: function (e) {
