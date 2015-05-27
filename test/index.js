@@ -257,4 +257,11 @@ describe('Link', () => {
 
     assert.equal(component.getDOMNode().style.color, 'red', 'active style set');
   });
+
+  it('pass through style prop', () => {
+
+    let component = TestUtils.renderIntoDocument(<Link style={{color: 'red'}}/>);
+
+    assert.equal(component.getDOMNode().style.color, 'red', 'active style set');
+  });
 });

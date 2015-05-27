@@ -104,7 +104,7 @@ SmallRouter.Link = createClass({
       {
         cursor: 'pointer'
       },
-      this.props.style, // TODO: test this
+      this.props.style,
       this.state.active ? this.props.activeStyle : {}
     )
 
