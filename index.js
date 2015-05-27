@@ -184,7 +184,6 @@ Routsy.Route = createClass({
     var element = null;
     var self = this;
 
-
     if (this.shouldRender()) {
 
       var params = this.parseParams();
@@ -211,7 +210,7 @@ Routsy.Route = createClass({
             paramsAsProps[mapToKey] = params[key];
           });
 
-        var props = assign(clone(self.props), {
+        var props = assign(clone(child.props), {
           router: {
             params: params
           }
