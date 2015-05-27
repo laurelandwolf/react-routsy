@@ -1,6 +1,6 @@
 {
   "name": "react-routsy",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Tiny React component for routing on individual pages",
   "main": "index.js",
   "scripts": {
