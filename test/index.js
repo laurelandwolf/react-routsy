@@ -3,10 +3,11 @@ import React from 'react/addons';
 
 import {
   Route,
+  Link,
   navigateTo,
   currentPath,
   currentPathMatches,
-  Link
+  removeHash
 } from '../';
 
 let TestUtils = React.addons.TestUtils;
@@ -29,31 +30,6 @@ describe('Router', () => {
           Path 2
         </Route>
       </div>;
-  });
-
-  describe('routes with multiple children', () => {
-
-    let routeWithMultipleChildren;
-
-    beforeEach(() => {
-
-      routeWithMultipleChildren =
-        <div>
-          <Route path='/mine'>
-            <p>My route</p>
-            <p>Something else</p>
-          </Route>
-        </div>;
-    });
-
-    it('renders successfully', () => {
-
-      navigateTo('/mine');
-
-      let component = TestUtils.renderIntoDocument(routeWithMultipleChildren);
-      let textContent = component.getDOMNode().textContent;
-      assert.equal(textContent, 'My routeSomething else', 'rendered text content');
-    });
   });
 
   it('gets and sets the current path', () => {
@@ -161,6 +137,31 @@ describe('Router', () => {
     });
   });
 
+  describe('routes with multiple children', () => {
+
+    let routeWithMultipleChildren;
+
+    beforeEach(() => {
+
+      routeWithMultipleChildren =
+        <div>
+          <Route path='/mine'>
+            <p>My route</p>
+            <p>Something else</p>
+          </Route>
+        </div>;
+    });
+
+    it('renders successfully', () => {
+
+      navigateTo('/mine');
+
+      let component = TestUtils.renderIntoDocument(routeWithMultipleChildren);
+      let textContent = component.getDOMNode().textContent;
+      assert.equal(textContent, 'My routeSomething else', 'rendered text content');
+    });
+  });
+
   describe('callback functions', () => {
 
     it('triggers a callback on render', () => {
@@ -257,6 +258,14 @@ describe('Link', () => {
     assert.ok(component.getDOMNode().classList.contains('active'), 'active class set');
   });
 
+  it('sets active class on default path', () => {
+
+    removeHash();
+    let component = TestUtils.renderIntoDocument(<Link path='/' />);
+
+    assert.ok(component.getDOMNode().classList.contains('active'), 'active class set');
+  });
+
   it('sets active class when component renders', () => {
 
     navigateTo('/path1');
@@ -293,6 +302,14 @@ describe('Link', () => {
     navigateTo('/');
     let component = TestUtils.renderIntoDocument(<Link path='/path1' activeStyle={{color: 'red'}} />);
     TestUtils.Simulate.click(component.getDOMNode());
+
+    assert.equal(component.getDOMNode().style.color, 'red', 'active style set');
+  });
+
+  it('sets active style on default path', () => {
+
+    removeHash();
+    let component = TestUtils.renderIntoDocument(<Link path='/' activeStyle={{color: 'red'}} />);
 
     assert.equal(component.getDOMNode().style.color, 'red', 'active style set');
   });

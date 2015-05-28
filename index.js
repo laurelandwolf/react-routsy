@@ -27,7 +27,7 @@ var Routsy = {
     var rawPath = window.location.hash.split('#')[1];
 
     if (rawPath === undefined) {
-      rawPath = '';
+      rawPath = '/';
     }
 
     return rawPath;
@@ -36,6 +36,15 @@ var Routsy = {
   currentPathMatches: function (path) {
 
     return path === Routsy.currentPath();
+  },
+
+  // TODO: test this
+  removeHash: function () {
+    history.pushState(
+      '',
+      document.title,
+      window.location.pathname + window.location.search
+    );
   }
 };
 
